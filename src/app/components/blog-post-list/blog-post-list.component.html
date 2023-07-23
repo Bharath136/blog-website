@@ -1,0 +1,86 @@
+<!-- blog-post-list.component.html -->
+<!-- <section class="blog-list">
+    <div *ngIf="blogs.length === 0" class="no-blogs">
+      No blogs found. Start creating blogs now!
+    </div>
+    <div *ngFor="let blog of blogs" class="blog-card">
+      <div class="blog-image">
+        <img [src]="blog.image" alt="Blog Image">
+      </div>
+      <div class="blog-content">
+        <h2>{{ blog.title }}</h2>
+        <p class="author">By {{ blog.author }}</p>
+        <p class="blog-text" [class.expanded]="isContentExpanded(blog)">{{ getDisplayedContent(blog) }}</p>
+        
+        <div class="tags">
+          <span class="tag" *ngFor="let tag of blog.tags.split(',')">{{ tag }}</span>
+        </div>
+        <div class="d-flex align-items-center justify-content-between">
+            
+        <button (click)="toggleContent(blog)" *ngIf="!isContentExpanded(blog)" class="read-button btn btn-dark">Read</button>
+        <button (click)="toggleContent(blog)" *ngIf="isContentExpanded(blog)" class="read-button btn btn-dark">Show Less</button>
+        <button (click)="deleteBlog(blog.id)" class="delete-button btn btn-danger">Delete</button>
+        </div>
+      </div>
+    </div>
+</section> -->
+
+
+<!-- blog-post-list.component.html -->
+<button routerLink="/" class=" ml-4 mt-4 back-button btn btn-secondary">
+    <i class="fas fa-arrow-left"></i> Back
+</button>
+<section class="blog-list">
+    <div *ngIf="blogs.length === 0" class="no-blogs">
+        No blogs found. Start creating blogs now!
+    </div>
+    
+    <div *ngFor="let blog of blogs" class="blog-card">
+        <div class="blog-image">
+            <img [src]="blog.image" alt="Blog Image">
+        </div>
+        <div class="blog-content">
+            <h2>{{ blog.title }}</h2>
+            <p class="author">By {{ blog.author }}</p>
+            <div *ngIf="isEditing(blog)">
+                <div class="form-group">
+                    <label for="edit-title">Blog Title:</label>
+                    <input type="text" id="edit-title" name="edit-title" [(ngModel)]="blog.title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="edit-author">Author:</label>
+                    <input type="text" id="edit-author" name="edit-author" [(ngModel)]="blog.author"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="edit-content">Blog Content:</label>
+                    <textarea id="edit-content" name="edit-content" rows="5" [(ngModel)]="blog.content"
+                        class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-tags">Tags (comma-separated):</label>
+                    <input type="text" id="edit-tags" name="edit-tags" [(ngModel)]="blog.tags" class="form-control">
+                </div>
+                
+            </div>
+            <div *ngIf="!isEditing(blog)" class="blog-text" [class.expanded]="isContentExpanded(blog)">
+                {{ getDisplayedContent(blog) }}
+            </div>
+            <div class="tags">
+                <span class="tag" *ngFor="let tag of blog.tags.split(',')">{{ tag }}</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <button (click)="toggleContent(blog)" *ngIf="!isContentExpanded(blog)"
+                    class="read-button btn btn-dark">Read</button>
+                <button (click)="toggleContent(blog)" *ngIf="isContentExpanded(blog)"
+                    class="read-button btn btn-dark">Show Less</button>
+                <div class="">
+                    <button (click)="deleteBlog(blog.id)" class="delete-button btn btn-danger">Delete</button>
+                    <button (click)="saveBlog(blog)"  *ngIf="isEditing(blog)" class="save-button btn btn-primary">Save</button>
+                    <button (click)="editBlog(blog)" *ngIf="!isEditing(blog)"
+                        class="edit-button btn btn-secondary">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
